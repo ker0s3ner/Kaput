@@ -1,212 +1,121 @@
-# PenTest Terminal v2.0
+# PenTest Terminal
 
-A comprehensive, modular penetration testing framework designed for terminal-based security assessments. Provides an interactive CLI for network reconnaissance, port scanning, service detection, vulnerability research, and exploitation.
+PenTest Terminal is an experimental, menu-driven Python toolkit for security
+research and authorized assessment. It brings together reconnaissance,
+network scanning, enumeration, web testing, OSINT, fuzzing, cryptography, and
+other utilities in one terminal application.
 
-## 🎯 Overview
+The project is a collection of modules at different stages of development. Some
+features perform real network or local operations; others are demonstrations,
+stubs, or incomplete integrations. Treat results as unverified and review the
+relevant implementation before relying on a tool.
 
-PenTest Terminal is a complete security testing platform with 18 categories and 75+ tools for:
-- Network reconnaissance and enumeration
-- Port scanning and service detection
-- Vulnerability scanning and exploit database
-- Web application testing
-- OSINT and social media searching
-- Payload generation and post-exploitation
-- Brute force and cryptographic operations
-- Fuzzing and network tools
+## Requirements
 
-## ✨ Features
+- Python 3.9 or newer
+- A POSIX terminal (Linux or macOS) for the interactive menu
+- The Python packages listed in [`requirements.txt`](./requirements.txt)
 
-| Category | Tools |
-|----------|-------|
-| **Reconnaissance** | WHOIS, DNS, Reverse DNS, GeoIP, Email Intelligence |
-| **Scanning** | Port Scan, Service Detect, UDP Scan, Stealth Scan |
-| **Enumeration** | Host Discovery, SMB, SNMP, Share Enumeration |
-| **Exploitation** | Exploit DB, Metasploit Search, Vulnerability Matcher, Payload Generator |
-| **Payloads** | Reverse Shell, Web Shell, Meterpreter, Custom Payload |
-| **Post-Exploit** | Privilege Escalation, Persistence, Data Exfiltration, Cover Tracks |
-| **Network Tools** | Network Mapper, Packet Sniffer, ARP Spoofing, Network Jammer |
-| **Web Tools** | SQL Injection, XSS, LFI/RFI, Web Crawler |
-| **OSINT** | Email Finder, Social Media Search, Domain Scraper, Metadata Extractor |
-| **Vulnerability Scanner** | CVE Scanner, Weakness Finder, Configuration Audit, Compliance Check |
-| **DDOS Tools** | HTTP Flood, DNS Flood, SYN Flood, UDP Flood |
-| **Brute Force** | SSH, FTP, Web Form, Hash Crack |
-| **Crypto** | Hash Generator, Encryption/Decryption, Encoding |
-| **Fuzzing** | Protocol Fuzzer, Web Fuzzer, Binary Fuzzer, Custom Fuzzer |
-| **Settings** | Target Config, Wordlists, Network Iface, Proxy |
-| **Clear** | Clear screen |
-| **Help** | Help system |
+Some operations require network access. Packet capture and certain network
+features may require additional operating-system permissions or tools.
 
-## 🚀 Quick Start
+## Installation
 
-### Installation
+From the repository directory, create and activate a virtual environment, then
+install the dependencies:
 
 ```bash
-cd /home/ligma/Work/Hacking
+python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 ```
 
-### Run the Application
+## Run
 
 ```bash
-python3 pentest_terminal.py
+python pentest_terminal.py
 ```
 
-### Basic Workflow
+The application opens an interactive menu. Use the arrow keys to move through
+the menu, press Enter to select an item, and press `q` to quit. In a submenu,
+use `Esc` to return to the main menu. Set a target from **Settings** before
+using tools that depend on the saved target.
 
-1. Launch app → See main menu with 18 categories
-2. Navigate grid with arrow keys (↑↓←→)
-3. Press ENTER to enter submenu
-4. Select tool from submenu
-5. Execute tool or view placeholder
-6. Press ESC to return to main menu
-7. Press 'q' to quit anytime
+The application stores its target and preferences in `settings.json` beside
+the application code and writes its log to `logs/pentest_terminal.log`.
+These files are created at runtime and are not required in advance.
 
-## 📦 Installation & Dependencies
+## What is included
 
-### Python Dependencies
+The current main menu contains these sections:
 
-```
-colorama>=0.4.4
-dnspython>=2.2.0
-python-whois>=0.7.3
-prompt_toolkit>=3.0.0
-requests>=2.28.0
-beautifulsoup4>=4.11.0
-scapy>=2.4.5
-paramiko>=2.11.0
-cryptography>=3.4.8
-```
+| Section | Examples of functionality in the repository |
+| --- | --- |
+| Reconnaissance | Combined lookup, WHOIS, DNS and reverse DNS lookups, GeoIP, and contact or profile searches |
+| Scanning | TCP and UDP port checks, service detection, host discovery, and enumeration |
+| Exploitation | Exploit reference data, vulnerability matching, and device/payload demonstrations |
+| Network Tools | Network mapping, packet capture, HTTP parameter checks, and network utilities |
+| Brute Force | SSH, FTP, web-form, and hash-cracking modules |
+| Crypto Tools | Hash generation, text encryption/decryption, and encoding |
+| Post-Exploit | Experimental post-exploitation demonstrations |
+| Fuzzing | Web, protocol, and custom fuzzing modules |
+| Settings | Target, wordlist, network interface, proxy, and optional AI model settings |
+| Clear, Help, Exit | Screen clearing, in-app navigation help, and application exit |
 
-### Python Version
+Other code is available as modules even if it is not exposed as a dedicated
+menu item. The repository includes code for HTTP tools, vulnerability and
+configuration checks, service enumeration, device utilities, and OSINT
+platform data. The local AI integration uses an Ollama server on the same
+machine; Ollama is optional and is not installed by `requirements.txt`.
 
-- **Required**: Python 3.7+
-- **Tested**: Python 3.14.2 (venv configured)
+### Implementation status
 
-## 📁 Project Structure
+The menu is not a guarantee that every item performs the action its label
+suggests. Some handlers are functional integrations, while others return
+placeholder output or simulate behavior. For example, the SYN-style scan is
+explicitly simulated; some payload and post-exploitation screens report
+success without carrying out the described operation. Check the relevant
+handler and module before using a result or assuming an action occurred.
 
-```
-pentest_terminal/
-├── pentest_terminal.py       # Main application (completely redesigned v2.0)
-├── requirements.txt          # Python dependencies (updated v2.0)
-├── TERMINAL_README.md        # Comprehensive documentation
-├── MENU_VISUAL_GUIDE.md      # Visual menu guide
-├── UPDATE_SUMMARY.md         # This file - upgrade summary
-├── config.conf               # Configuration file
-├── .gitignore               # Git ignore patterns
-├── modules/                 # Core modules package
-│   ├── __init__.py
-│   ├── utils.py             # Utilities & helpers
-│   ├── scanner.py           # Port scanning module
-│   ├── recon.py             # Reconnaissance module
-│   ├── exploit.py           # Exploit database module
+There is no automated test suite in the repository at this time.
+
+## Repository layout
+
+```text
+.
+├── pentest_terminal.py       # Interactive application and menu handlers
+├── sploiter.py               # Alternate/older application entry point
+├── patch_handlers.py         # Source-editing utility
+├── config.conf               # Example settings; not loaded by the main app
+├── requirements.txt          # Python dependencies
+├── modules/
+│   ├── bruteforce.py
+│   ├── crypto_tools.py
+│   ├── device_tools.py
+│   ├── enumeration.py
+│   ├── exploit.py
+│   ├── fuzzer.py
+│   ├── http_tools.py
+│   ├── intel.py
+│   ├── local_ai.py
+│   ├── network_tools.py
+│   ├── osint.py
+│   ├── platforms.py
+│   ├── recon.py
+│   ├── scanner.py
+│   ├── utils.py
+│   ├── vuln_scanner.py
 │   └── data/
-│       └── exploits.json    # Searchable exploit database
-└── .venv/                   (Virtual environment)
+│       └── exploits.json    # Local exploit-reference data
+└── logs/                     # Runtime logs
 ```
 
-## 🎮 Navigation
+## Responsible use
 
-### Main Menu
-
-The main menu features a 3-column grid layout with 18 categories. Navigate using:
-
-- **↑** - Move up (grid rows)
-- **↓** - Move down (grid rows)
-- **←** - Move left (grid columns)
-- **→** - Move right (grid columns)
-- **ENTER** - Select option / Enter submenu
-- **ESC** - Go back to main menu
-- **q** - Quit application
-
-### Submenus
-
-Each main category has a submenu with 4-5 specialized tools. ESC returns to main menu from anywhere.
-
-## 🛠️ Available Tools
-
-### Core Features (Ready ✅)
-
-- **Port Scanning** - Multi-threaded TCP/UDP scanning
-- **Service Detection** - Banner grabbing and service identification
-- **DNS Enumeration** - A, MX, NS, TXT, CNAME, SOA record lookup
-- **WHOIS Lookup** - Domain registration information
-- **Host Discovery** - Ping-based active host detection
-- **Exploit Database** - Searchable CVE/vulnerability database
-- **Service Enumeration** - Common service banner grabbing
-
-### Placeholder Features (🔄 Coming Soon)
-
-All advanced features are marked as "Coming Soon" and can be easily implemented by:
-1. Adding to submenu in `MenuNavigator._init_submenus()`
-2. Creating handler in `PentestTerminal` class
-3. Adding to handlers dict in `handle_selection()`
-4. Implementing functionality or using `_show_placeholder()`
-
-## 📚 Documentation
-
-- **TERMINAL_README.md** - Comprehensive documentation
-- **MENU_VISUAL_GUIDE.md** - Visual menu layout and examples
-- **UPDATE_SUMMARY.md** - upgrade history and changes
-- **PROJECT_SUMMARY.md** - Project technical details
-
-## 🔧 Customization
-
-### Add New Tool
-
-1. Add to submenu in `MenuNavigator._init_submenus()`
-2. Create handler in `PentestTerminal` class
-3. Add to handlers dict in `handle_selection()`
-4. Implement functionality or use `_show_placeholder()`
-
-### Modify Menu Layout
-
-- Change `cols = 3` in `MenuNavigator.__init__()` for different grid sizes
-- Edit `menu_items` list to reorder or rename categories
-- Customize colors in the code (search for `Fore.` constants)
-
-### Customize Colors
-
-```python
-# Current color scheme
-Fore.RED    # Branding, warnings
-Fore.GREEN  # Success
-Fore.CYAN   # Selection, tools
-Fore.YELLOW # Prompts, info
-```
-
-## 📊 Version History
-
-- **v2.0** (Feb 2026) - Complete redesign with grid menu, 18 categories, 75+ tools, ESC support
-- **v1.0** (Earlier) - Basic command interface with 9 tools
-
-## ⚠️ Legal & Ethical
-
-**⚠️ For authorized security testing only.** This tool is designed for authorized penetration testing and security research.
-
-- Always obtain written permission before testing any systems you do not own
-- Unauthorized access is illegal in most jurisdictions
-- Document all testing activities
-- Maintain detailed logs (automatically created)
-- Follow responsible disclosure practices
-
-## 🎉 Status
-
-**Version**: v2.0  
-**Status**: ✅ Ready to Use  
-**Last Updated**: February 9, 2026  
-**Total Lines of Code**: 900+  
-**Categories**: 18  
-**Tools**: 75+  
-
-🎉 **Enjoy your new PenTest Terminal!**
-
-## 📄 License & Disclaimer
-
-This project is provided **as-is** for educational and authorized security testing purposes.
-
-**⚠️ DISCLAIMER**: Unauthorized access to computer systems is illegal. Users are solely responsible for ensuring their use of this tool complies with all applicable laws and regulations. The authors assume no liability for misuse.
-
----
-
-*For questions, issues, or feature requests, check the documentation files or review the code comments.*
+Use this software only on systems, networks, accounts, and data that you own
+or are explicitly authorized to assess. Some modules can send traffic, attempt
+authentication, capture packets, or interact with third-party services. Obtain
+permission, define an approved scope, and comply with applicable laws and
+service terms before running them. Do not treat this project as a substitute
+for a reviewed security tool or a professional assessment.
