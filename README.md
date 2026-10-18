@@ -1,7 +1,7 @@
-# PenTest Terminal
+# Kaput
 
-PenTest Terminal is an experimental, menu-driven Python toolkit for security
-research and authorized assessment. It brings together reconnaissance,
+Kaput is an experimental, menu-driven Python toolkit for security research
+and authorized assessment. It brings together reconnaissance,
 network scanning, enumeration, web testing, OSINT, fuzzing, cryptography, and
 other utilities in one terminal application.
 
