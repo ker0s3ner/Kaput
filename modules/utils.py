@@ -2,6 +2,7 @@
 
 import re
 import logging
+import os
 from datetime import datetime
 import ipaddress
 from colorama import Fore, Style
@@ -17,6 +18,7 @@ class Logger:
     
     def _setup_logger(self):
         """Setup logging configuration"""
+        os.makedirs("logs", exist_ok=True)
         handler = logging.FileHandler(f"logs/{self.name}.log")
         formatter = logging.Formatter(
             '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
